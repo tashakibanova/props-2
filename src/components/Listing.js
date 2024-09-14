@@ -1,47 +1,34 @@
-// src/components/Listing.js
+import ListItem from './ListItem';
 
-import React from 'react';
-import '../css/main.css'; // Подключение css файла для корректной стилизации
+const defaultProps = {
+  items: [],
+};
 
-const Listing = ({ items = [] }) => {
-  const formatPrice = (price, currency_code) => {
-    if (currency_code === 'USD') {
-      return `$${price}`;
-    } else if (currency_code === 'EUR') {
-      return `€${price}`;
-    } else {
-      return `${price} ${currency_code}`;
-    }
-  };
-
-  const getQuantityClass = (quantity) => {
-    if (quantity <= 10) {
-      return 'level-low';
-    } else if (quantity <= 20) {
-      return 'level-medium';
-    } else {
-      return 'level-high';
-    }
-  };
-
+function Listing({ items }) {
   return (
     <div className="item-list">
-      {items.map(item => (
-        <div className="item" key={item.listing_id}>
-          <div className="item-image">
-            <a href={item.url}>
-              <img src={item.MainImage.url_570xN} alt={item.title} />
-            </a>
-          </div>
-          <div className="item-details">
-            <p className="item-title">{item.title.length > 50 ? `${item.title.slice(0, 50)}…` : item.title}</p>
-            <p className="item-price">{formatPrice(item.price, item.currency_code)}</p>
-            <p className={`item-quantity ${getQuantityClass(item.quantity)}`}>{item.quantity} left</p>
-          </div>
-        </div>
-      ))}
+      {items.map((item) => {
+        if (item.state === 'removed') {
+          return null;
+        }
+
+        return (
+          <ListItem
+            key={item.listing_id}
+            id={item.listing_id}
+            url={item.url}
+            MainImage={item.MainImage.url_570xN}
+            title={item.title}
+            currency_code={item.currency_code}
+            price={item.price}
+            quantity={item.quantity}
+          />
+        );
+      })}
     </div>
   );
-};
+}
+
+Listing.defaultProps = defaultProps;
 
 export default Listing;

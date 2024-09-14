@@ -1,18 +1,16 @@
-// src/App.js
-
-import React from 'react';
-import { data } from './data';
+import '../css/App.css';
 import Listing from './Listing';
+import etsy from './etsy';
 
 function App() {
   return (
-    <div className="App">
-      <div className="wrapper">
-        <Listing items={data} />
-      </div>
+    <div className="container">
+      <Listing items={etsy} />
     </div>
   );
 }
 
 export default App;
+
+
 
