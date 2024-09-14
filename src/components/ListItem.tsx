@@ -1,20 +1,27 @@
+// ListItem.tsx
+import React from 'react';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import getFormattedPrice from './getFormattedPrice';
 
-const propTypes = {
-  id: PropTypes.number.isRequired,
-  url: PropTypes.string.isRequired,
-  MainImage: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  currency_code: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-  quantity: PropTypes.number.isRequired,
-};
+// Определяем интерфейс для пропсов
+interface ListItemProps {
+  id: number;
+  url: string;
+  MainImage: string;
+  title: string;
+  currency_code: string;
+  price: string;
+  quantity: number;
+}
 
-function ListItem(props) {
-  const { url, MainImage, title, currency_code, price, quantity } = props;
-
+const ListItem: React.FC<ListItemProps> = ({
+  url,
+  MainImage,
+  title,
+  currency_code,
+  price,
+  quantity
+}) => {
   const titleLimit = 50;
 
   const quantityClassName = classNames('item-quantity', {
@@ -43,8 +50,6 @@ function ListItem(props) {
       </div>
     </div>
   );
-}
-
-ListItem.propTypes = propTypes;
+};
 
 export default ListItem;
